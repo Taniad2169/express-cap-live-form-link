@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload Documents for Express Capital Network Associates</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f4f4f9;
+    }
+    h1 {
+      color: #333;
+      text-align: center;
+    }
+    form {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      margin: 24px auto 0 auto;
+    }
+    label {
+      display: block;
+      margin-bottom: 10px;
+      color: #444;
+    }
+    input[type="file"],
+    input[type="email"],
+    input[type="text"],
+    textarea {
+      margin-bottom: 20px;
+      width: 100%;
+      padding: 8px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      font-size: 1em;
+    }
+    .button-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      flex: 1 1 0;
+    }
+    button[type="button"] {
+      background-color: #d32f2f;
+    }
+    button[type="button"]:hover {
+      background-color: #b71c1c;
+    }
+    button[type="submit"]:hover {
+      background-color: #45a049;
+    }
+    .note {
+      font-size: 0.9em;
+      color: #666;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+    .docusign-section {
+      max-width: 400px;
+      margin: 28px auto 0 auto;
+      text-align: center;
+      background: #fdf6e3;
+      padding: 15px 20px;
+      border-radius: 8px;
+      border: 1px solid #ffe082;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    /* Removed DocuSign button styling */
+  </style>
+</head>
+<body>
+  <h1>Upload Documents for Express Capital Network Associates</h1>
+  <div class="note">
+    Accepted file types: PDF, JPG, JPEG, PNG, DOC, DOCX, TXT. Max file size: 5MB each.
+  </div>
+  <form id="uploadForm" action="https://formspree.io/f/mjkoeggo" method="POST" enctype="multipart/form-data">
+    <label for="fullName">Full Name:</label>
+    <input type="text" id="fullName" name="fullName" placeholder="Your full name" required>
+
+    <label for="businessName">Business Name:</label>
+    <input type="text" id="businessName" name="businessName" placeholder="Your business name" required>
+
+    <label for="email">Your Email:</label>
+    <input type="email" id="email" name="email" placeholder="you@email.com" required>
+
+    <label for="bankStatement">Bank Statement:</label>
+    <input type="file" id="bankStatement" name="bankStatement" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx,.txt" required>
+
+    <label for="taxReturn">Tax Return (1040):</label>
+    <input type="file" id="taxReturn" name="taxReturn" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx,.txt" required>
+
+    <label for="driversLicense">Driver's License:</label>
+    <input type="file" id="driversLicense" name="driversLicense" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx,.txt" required>
+
+    <label for="otherDocs">Other Documents:</label>
+    <input type="file" id="otherDocs" name="otherDocs" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx,.txt">
+
+    <label for="message">Comments or Notes:</label>
+    <textarea id="message" name="message" rows="3" placeholder="Add any additional comments (optional)"></textarea>
+    
+    <div class="button-row">
+      <button type="button" id="cancelBtn">Cancel</button>
+      <button type="submit">Upload Files</button>
+    </div>
+  </form>
+  <!-- DocuSign section removed, layout preserved -->
+  <script>
+    // Validate file size before upload
+    document.getElementById("uploadForm").addEventListener("submit", function(event) {
+      let allFilesValid = true;
+      ["bankStatement", "taxReturn", "driversLicense", "otherDocs"].forEach(function(id) {
+        const fileInput = document.getElementById(id);
+        if (fileInput && fileInput.files[0] && fileInput.files[0].size > 5 * 1024 * 1024) {
+          alert("One or more files exceed the 5MB limit.");
+          allFilesValid = false;
+        }
+      });
+      if (!allFilesValid) event.preventDefault();
+      // Note: Formspree processes the form submission and sends files to the endpoint.
+    });
+
+    // Cancel button logic: clears all file inputs
+    document.getElementById("cancelBtn").addEventListener("click", function() {
+      document.getElementById("uploadForm").reset();
+    });
+  </script>
+</body>
+</html>
